@@ -78,15 +78,19 @@ class Gaji extends CI_Controller
     public function create_action() 
     {
         $this->_rules();
-
+        $nik = $this->input->post('nik',TRUE);
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
             $data = array(
 		'tgl' => $this->input->post('tgl',TRUE),
 		'nik' => $this->input->post('nik',TRUE),
-	    );
-
+        );
+            $d = $this->db->query("SELECT * from karyawan where nik='$nik'")->row();
+            $isi='<a href=\'http://localhost/gajikaryawan/email/emailgaji/'.$nik.'/'.$tgl.'\>VERIFIKASI KLIK DISINI</a>';
+            $emailtujuan = $d->email;
+            $subject = "Konfirmasi Gaji";
+            $this->Gaji_model->email($subject,$isi,$emailtujuan);
             $this->Gaji_model->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
             redirect(site_url('gaji'));
@@ -117,15 +121,20 @@ class Gaji extends CI_Controller
     public function update_action() 
     {
         $this->_rules();
-
+        $nik = $this->input->post('nik',TRUE);
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('id_gaji', TRUE));
         } else {
             $data = array(
 		'tgl' => $this->input->post('tgl',TRUE),
 		'nik' => $this->input->post('nik',TRUE),
-	    );
-
+        );
+        
+            $d = $this->db->query("SELECT * from karyawan where nik='$nik'")->row();
+            $isi='<a href=\'http://localhost/gajikaryawan/email/emailgaji/'.$nik.'/'.$tgl.'\>VERIFIKASI KLIK DISINI</a>';
+            $emailtujuan = $d->email;
+            $subject = "Konfirmasi Gaji";
+            $this->Gaji_model->email($subject,$isi,$emailtujuan);
             $this->Gaji_model->update($this->input->post('id_gaji', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
             redirect(site_url('gaji'));

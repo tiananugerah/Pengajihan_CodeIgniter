@@ -36,24 +36,22 @@ class App extends CI_Controller
 		$this->load->view('lapgajikaryawan', $data);
 	}
 
-	public function konfirmasi($id)
+	public function update_konfirmasi($nik,$id,$tgl,$update)
 	{
-		$data = array(
-			'rw' => $this->db->query("SELECT * FROM karyawan, pekerjaan where karyawan.id_pekerjaan=pekerjaan.id_pekerjaan "),
-			'konten' => 'konfirmasi',
-            'judul' => 'Dashboard',
-		);
-		$this->load->view('konfirmasi', $data);
+		$this->db->query("UPDATE gaji SET konfirmasi ='$update' WHERE nik='$nik' and tgl = '$tgl'");
+		$d = $this->db->query("SELECT * from karyawan, gaji where karyawan.nik=gaji.nik and id_karyawan='$id' ORDER BY id_gaji desc");
+		header("Location: http://localhost/gajikaryawan/app/konfirmasi/$id", true, 301);
 	}
 
-	public function konfirmasi_in()
+	public function konfirmasi($id)
 	{
+		$d = $this->db->query("SELECT * from karyawan, gaji where karyawan.nik=gaji.nik and id_karyawan='$id' ORDER BY id_gaji desc");
 		$data = array(
-			'rw' => $this->db->query("SELECT * FROM karyawan, pekerjaan where karyawan.id_pekerjaan=pekerjaan.id_pekerjaan "),
+			'rw' => $d,
 			'konten' => 'konfirmasi',
-            'judul' => 'Dashboard',
+            'judul' => 'Data Konfirmasi Gaji',
 		);
-		$this->load->view('konfirmasi', $data);
+		$this->load->view('v_index', $data);
 	}
 
 	public function tampilprofil($id)

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 10, 2020 at 10:08 AM
+-- Generation Time: Jan 13, 2020 at 10:35 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.1.33
 
@@ -32,8 +32,8 @@ CREATE TABLE `gaji` (
   `id_gaji` int(11) NOT NULL,
   `tgl` date DEFAULT NULL,
   `nik` varchar(30) DEFAULT NULL,
-  `konfirmasi` int(1) NOT NULL,
-  `kirim` int(1) NOT NULL
+  `konfirmasi` int(1) DEFAULT NULL,
+  `kirim` int(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -41,8 +41,14 @@ CREATE TABLE `gaji` (
 --
 
 INSERT INTO `gaji` (`id_gaji`, `tgl`, `nik`, `konfirmasi`, `kirim`) VALUES
-(4, '2017-11-10', '68657537683', 0, 0),
-(6, '2020-01-03', '68657537683', 0, 0);
+(4, '2017-11-10', '68657537683', 0, 1),
+(6, '2020-01-03', '68657537683', 1, 0),
+(7, '2020-01-31', '68657537683', 0, NULL),
+(8, '2020-02-01', '68657537683', 1, NULL),
+(9, '2020-02-03', '68657537683', NULL, NULL),
+(10, '2020-01-01', '68657537683', NULL, NULL),
+(11, '2020-03-11', '68657537683', NULL, NULL),
+(12, '2020-01-18', '68657537683', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -61,6 +67,7 @@ CREATE TABLE `karyawan` (
   `agama` varchar(20) DEFAULT NULL,
   `pendidikan` varchar(50) DEFAULT NULL,
   `asal_sekolah` varchar(100) DEFAULT NULL,
+  `email` varchar(50) NOT NULL,
   `id_pekerjaan` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -68,8 +75,8 @@ CREATE TABLE `karyawan` (
 -- Dumping data for table `karyawan`
 --
 
-INSERT INTO `karyawan` (`id_karyawan`, `nik`, `username`, `password`, `nama`, `alamat`, `jenis_kelamin`, `agama`, `pendidikan`, `asal_sekolah`, `id_pekerjaan`) VALUES
-(1, '68657537683', 'user', 'user', 'Joni Saputra', 'jambi', 'Laki-laki', 'Islam', '', '', 1);
+INSERT INTO `karyawan` (`id_karyawan`, `nik`, `username`, `password`, `nama`, `alamat`, `jenis_kelamin`, `agama`, `pendidikan`, `asal_sekolah`, `email`, `id_pekerjaan`) VALUES
+(1, '68657537683', 'user', 'user', 'Joni Saputra', 'jambi', 'Laki-laki', 'Islam', '', '', 'tiananugerah77@gmail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -151,7 +158,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `gaji`
 --
 ALTER TABLE `gaji`
-  MODIFY `id_gaji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_gaji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `karyawan`
