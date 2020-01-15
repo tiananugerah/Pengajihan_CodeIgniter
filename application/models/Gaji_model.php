@@ -29,11 +29,16 @@ class Gaji_model extends CI_Model
   
         $this->load->library('email', $config);
         $this->email->initialize($config);
-  
-        $this->email->from('tiananugerah14@gmail.com');
+
+        $data = array(
+			'nik'=> $nik,
+            'URL'=> $isi
+        );
+        //$isiemail = $this->load->view(base_url().'assets/email.html',$data,TRUE);
+        $this->email->from('tiananugerah14@gmail.com','KONFIRMASI GAJI');
         $this->email->to($emailtujuan);
         $this->email->subject($subject);
-        $this->email->message($isi);
+        $this->email->message($this->load->view(base_url().'assets/email.html',$data));
         $this->email->set_mailtype('html');
         $this->email->send();	
     }
